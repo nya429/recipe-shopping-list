@@ -21,14 +21,11 @@ export class ShoppingEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  onAddShoppingList() {
-    console.log('add');
-    console.log(this.nameInput);
-    console.log(this.amountInput);
+  onAddShoppingList(unitInput) {
     this.IngredientAdded.emit({
       name: this.nameInput.nativeElement.value,
       amount: this.amountInput.nativeElement.value,
-      unit:''
+      unit: unitInput
     });
   }
 
