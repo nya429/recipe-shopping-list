@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -19,7 +20,8 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
-              private router: Router,) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -72,6 +74,10 @@ export class RecipeEditComponent implements OnInit {
       //   this.recipeForm.value['description'],
       //   this.recipeForm.value['ingredients']
       // );
+      if (!this.authService.isAuthenticated()) {
+        this.router.navigate(['/signin']);
+      }
+
       if (this.editMode) {
         this.recipeService.updateRecipe(this.id,  this.recipeForm.value);
       } else {
@@ -84,7 +90,7 @@ export class RecipeEditComponent implements OnInit {
       'name': new FormControl(null, Validators.required),
       'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
       'unit': new FormControl(''),
-    }))
+    }));
   }
 
   onCancle() {
@@ -92,6 +98,9 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onDeleteIngredient(index: number) {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/signin']);
+    }
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
 }

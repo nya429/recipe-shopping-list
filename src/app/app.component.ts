@@ -9,8 +9,8 @@ import * as firebase from 'firebase';
 export class AppComponent implements OnInit {
   ngOnInit() {
     firebase.initializeApp({
-      apiKey: "AIzaSyCi1WQErpivMi6aKC6Ehz6C3qok9qV8E3I",
-      authDomain: "ngrecipe-ff888.firebaseapp.com"
-    })
+      apiKey: 'AIzaSyCi1WQErpivMi6aKC6Ehz6C3qok9qV8E3I',
+      authDomain: 'ngrecipe-ff888.firebaseapp.com'
+    });
   }
 }
