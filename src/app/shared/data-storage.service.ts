@@ -1,5 +1,6 @@
-import { Http, Response } from "@angular/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Http, Response } from '@angular/http';
+import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 
 import { RecipeService } from './../recipes/recipe.service';
@@ -8,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class DataStorageService {
-    constructor (private http: Http,
+    constructor (private http: Http, private httpClient: HttpClient,
                 private  recipeService: RecipeService,
                 private authService: AuthService) {}
 
