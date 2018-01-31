@@ -85,6 +85,7 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
       } else {
         this.recipeService.addRecipe( this.recipeForm.value);
       }
+      this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onAddIngredient() {
@@ -93,6 +94,7 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
       'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
       'unit': new FormControl(''),
     }));
+ 
   }
 
   onCancle() {
