@@ -23,6 +23,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGard } from './auth/auth-guard.service';
+import { CanDeactivateGuard } from './auth/deactivate-guard.service';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { AuthGard } from './auth/auth-guard.service';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGard],
+  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGard, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule  { }

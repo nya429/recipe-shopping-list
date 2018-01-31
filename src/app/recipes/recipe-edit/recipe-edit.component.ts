@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -6,13 +7,14 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { RecipeDetailComponent } from '../recipe-detail/recipe-detail.component';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { CanComponentDeactivate } from '../../auth/deactivate-guard.service';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
   id: number;
   editMode = false;
   // recipe: Recipe;
@@ -102,5 +104,13 @@ export class RecipeEditComponent implements OnInit {
       this.router.navigate(['/signin']);
     }
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+      if (this.recipeForm.dirty) {
+        return confirm('Discard change')
+      } else {
+        return true;
+      }
   }
 }

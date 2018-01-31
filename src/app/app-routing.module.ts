@@ -11,6 +11,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGard } from './auth/auth-guard.service';
+import { CanDeactivateGuard } from './auth/deactivate-guard.service';
 
 
 const appRoutes: Routes = [
@@ -19,9 +20,9 @@ const appRoutes: Routes = [
         component: RecipesComponent,
         children: [
             { path: '', component: RecipeStartComponent },
-            { path: 'new', component: RecipeEditComponent, canActivate: [AuthGard]},
+            { path: 'new', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]},
             { path: ':id', component: RecipeDetailComponent },
-            { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGard]}
+            { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]}
         ]
     },
     {path: 'shoppinglist', component: ShoppingListComponent},
