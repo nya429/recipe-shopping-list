@@ -12,6 +12,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGard } from './auth/auth-guard.service';
 import { CanDeactivateGuard } from './auth/deactivate-guard.service';
+import { RoutResolver } from './recipes/recipe-resolver.service';
 
 
 const appRoutes: Routes = [
@@ -21,7 +22,7 @@ const appRoutes: Routes = [
         children: [
             { path: '', component: RecipeStartComponent },
             { path: 'new', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]},
-            { path: ':id', component: RecipeDetailComponent },
+            { path: ':id', component: RecipeDetailComponent, resolve: {recipe: RoutResolver} },
             { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]}
         ]
     },

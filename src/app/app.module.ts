@@ -24,6 +24,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGard } from './auth/auth-guard.service';
 import { CanDeactivateGuard } from './auth/deactivate-guard.service';
+import { RoutResolver } from './recipes/recipe-resolver.service';
 
 
 @NgModule({
@@ -50,7 +51,13 @@ import { CanDeactivateGuard } from './auth/deactivate-guard.service';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGard, CanDeactivateGuard],
+  providers: [ShoppingListService,
+              RecipeService,
+              DataStorageService,
+              AuthService,
+              AuthGard,
+              CanDeactivateGuard,
+              RoutResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule  { }

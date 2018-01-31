@@ -19,6 +19,7 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
   editMode = false;
   // recipe: Recipe;
   recipeForm: FormGroup;
+  isFinished = false;
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
@@ -85,6 +86,7 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
       } else {
         this.recipeService.addRecipe( this.recipeForm.value);
       }
+      this.isFinished = true;
       this.router.navigate(['../'], {relativeTo: this.route});
   }
 
@@ -94,10 +96,11 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
       'amount': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]),
       'unit': new FormControl(''),
     }));
- 
+
   }
 
   onCancle() {
+    this.isFinished = true;
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
@@ -109,8 +112,8 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-      if (this.recipeForm.dirty) {
-        return confirm('Discard change')
+      if (this.recipeForm.dirty && !this.isFinished) {
+        return confirm('Discard change');
       } else {
         return true;
       }
