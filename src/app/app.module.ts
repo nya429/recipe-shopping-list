@@ -25,6 +25,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGard } from './auth/auth-guard.service';
 import { CanDeactivateGuard } from './auth/deactivate-guard.service';
 import { RoutResolver } from './recipes/recipe-resolver.service';
+import { EmailRegValidatorDirective } from './auth/email-validation.directive';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { RoutResolver } from './recipes/recipe-resolver.service';
     RecipeStartComponent,
     RecipeEditComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    EmailRegValidatorDirective
   ],
   imports: [
     BrowserModule,
