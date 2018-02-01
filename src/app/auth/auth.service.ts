@@ -6,6 +6,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 export class AuthService {
     errorEmiiter = new EventEmitter<string> ();
     token: string = null;
+    errorMessage: string = null;
 
     constructor(private router: Router) {}
 
@@ -24,7 +25,9 @@ export class AuthService {
             }
         )
         .catch(
-            e => this.errorEmiiter.emit(e)
+            e => {
+                this.errorEmiiter.emit(e);
+                }
         );
     }
 
@@ -40,7 +43,8 @@ export class AuthService {
             }
 )
         .catch(
-            e => console.error(e)
+            e => {               
+             this.errorMessage = e.message;
         );
     }
 
@@ -59,5 +63,9 @@ export class AuthService {
         firebase.auth().signOut();
         this.token = null;
         this.router.navigate(['/']);
+    }
+
+    errorAlert() {
+        return this.errorMessage !== null;
     }
 }
