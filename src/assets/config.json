@@ -1,0 +1,4 @@
+{
+  "firebaseUrl": "https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=",
+  "textfile": "assets/textfile.txt"
+}

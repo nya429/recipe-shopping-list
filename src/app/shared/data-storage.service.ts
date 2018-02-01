@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 import { RecipeService } from './../recipes/recipe.service';
 import { Recipe } from './../recipes/recipe.model';
 import { AuthService } from '../auth/auth.service';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class DataStorageService {
@@ -43,5 +44,21 @@ export class DataStorageService {
                 this.recipeService.updateRecipes(recipes);
             }
         );
+    }
+
+    handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error(
+            `Backend returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+        }
+        // return an ErrorObservable with a user-facing error message
+        return new ErrorObservable(
+          'Something bad happened; please try again later.');
     }
 }

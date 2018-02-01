@@ -1,9 +1,10 @@
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 
 @Injectable()
 export class AuthService {
+    errorEmiiter = new EventEmitter<string> ();
     token: string = null;
 
     constructor(private router: Router) {}
@@ -23,11 +24,11 @@ export class AuthService {
             }
         )
         .catch(
-            e => console.error(e)
+            e => this.errorEmiiter.emit(e)
         );
     }
 
-    signupinUser(email: string, password: string) {
+    signinUser(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(
             response => {
@@ -58,5 +59,5 @@ export class AuthService {
         firebase.auth().signOut();
         this.token = null;
         this.router.navigate(['/']);
-     }
+    }
 }
