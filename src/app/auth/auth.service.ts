@@ -43,9 +43,7 @@ export class AuthService {
             }
 )
         .catch(
-            e => {               
-             this.errorMessage = e.message;
-        );
+            e => this.errorMessage = e.message;
     }
 
     getToken() {

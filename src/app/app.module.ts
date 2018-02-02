@@ -1,8 +1,9 @@
+import { AuthInterceptor } from './shared/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -27,7 +28,6 @@ import { CanDeactivateGuard } from './auth/deactivate-guard.service';
 import { RoutResolver } from './recipes/recipe-resolver.service';
 import { EmailRegValidatorDirective } from './auth/email-validation.directive';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +43,7 @@ import { EmailRegValidatorDirective } from './auth/email-validation.directive';
     RecipeEditComponent,
     SigninComponent,
     SignupComponent,
-    EmailRegValidatorDirective
+    EmailRegValidatorDirective,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +59,9 @@ import { EmailRegValidatorDirective } from './auth/email-validation.directive';
               AuthService,
               AuthGard,
               CanDeactivateGuard,
-              RoutResolver],
+              RoutResolver,
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+              ],
   bootstrap: [AppComponent]
 })
 export class AppModule  { }

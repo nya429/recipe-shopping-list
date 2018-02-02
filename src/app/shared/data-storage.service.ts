@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
@@ -7,6 +7,7 @@ import { RecipeService } from './../recipes/recipe.service';
 import { Recipe } from './../recipes/recipe.model';
 import { AuthService } from '../auth/auth.service';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import {  } from '@angular/common/http/src/params';
 
 @Injectable()
 export class DataStorageService {
@@ -16,22 +17,28 @@ export class DataStorageService {
 
     storeRecipes() {
         const token = this.authService.getToken();
-        return this.httpClient.put('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token,
         // return this.http.put('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token,
-                      this.recipeService.getRecipes());
+        //   this.recipeService.getRecipes());
+        return this.httpClient.put('https://ngrecipe-ff888.firebaseio.com/recipes.json?',
+                this.recipeService.getRecipes(), {
+                    // observe: 'events'
+                    observe: 'body',
+                    params: new HttpParams().set('auth', token)
+                });
     }
 
     fetchRecipes() {
         const token = this.authService.getToken();
-        this.httpClient.get<Recipe[]>('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token, {
-            observe: 'body',
-            responseType: 'json'
-        })
         // this.http.get('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token)
+        //     .map(
+        //         (recipes) => {
+        // (response: Response) => { 
+        //     const recipes: Recipe[] = response.json();
+        this.httpClient.get<Recipe[]>('https://ngrecipe-ff888.firebaseio.com/recipes.json?',{
+            params: new HttpParams().set('auth', token)
+        })
         .map(
             (recipes) => {
-            // (response: Response) => { 
-                //  const recipes: Recipe[] = response.json();
                  for (let recipe of recipes) {
                      if (recipe['ingredients']) {
                          recipe['ingredients'] = [];
