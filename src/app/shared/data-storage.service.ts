@@ -7,7 +7,6 @@ import { RecipeService } from './../recipes/recipe.service';
 import { Recipe } from './../recipes/recipe.model';
 import { AuthService } from '../auth/auth.service';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import {  } from '@angular/common/http/src/params';
 
 @Injectable()
 export class DataStorageService {
@@ -30,15 +29,13 @@ export class DataStorageService {
     fetchRecipes() {
         const token = this.authService.getToken();
         // this.http.get('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token)
-        //     .map(
-        //         (recipes) => {
-        // (response: Response) => { 
-        //     const recipes: Recipe[] = response.json();
-        this.httpClient.get<Recipe[]>('https://ngrecipe-ff888.firebaseio.com/recipes.json?',{
+        // .map(
+        //     (response: Response) => { 
+        //          const recipes: Recipe[] = response.json();
+        return this.httpClient.get<Recipe[]>('https://ngrecipe-ff888.firebaseio.com/recipes.json?',{
             params: new HttpParams().set('auth', token)
         })
-        .map(
-            (recipes) => {
+        .map(recipes => {
                  for (let recipe of recipes) {
                      if (recipe['ingredients']) {
                          recipe['ingredients'] = [];

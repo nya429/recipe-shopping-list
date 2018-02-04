@@ -19,7 +19,9 @@ export class AuthService {
                 .then(
                     (token: string) => {
                         this.token = token;
-                        this.router.navigate(['/']);
+                        setTimeout(() => {
+                            this.router.navigate(['/']);
+                             }, 2000)
                     }
                 );
             }
@@ -38,12 +40,15 @@ export class AuthService {
                 firebase.auth().currentUser.getToken().then(
                     (token: string) => {
                         this.token = token;
+                        setTimeout(() => {
                         this.router.navigate(['/']);
+                         }, 2000)
                 });
             }
 )
         .catch(
-            e => this.errorMessage = e.message;
+            e => this.errorMessage = e.message
+        )
     }
 
     getToken() {

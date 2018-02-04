@@ -17,15 +17,6 @@ import { RoutResolver } from './recipes/recipe-resolver.service';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/recipes', pathMatch: 'full'},
-    {path: 'recipes',
-        component: RecipesComponent,
-        children: [
-            { path: '', component: RecipeStartComponent },
-            { path: 'new', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]},
-            { path: ':id', component: RecipeDetailComponent, resolve: {recipe: RoutResolver} },
-            { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGard], canDeactivate: [CanDeactivateGuard]}
-        ]
-    },
     {path: 'shoppinglist', component: ShoppingListComponent},
     {path: 'signup', component: SignupComponent},
     {path: 'signin', component: SigninComponent}
