@@ -21,7 +21,7 @@ export class AuthService {
                         this.token = token;
                         setTimeout(() => {
                             this.router.navigate(['/']);
-                             }, 2000)
+                             }, 2000);
                     }
                 );
             }
@@ -42,13 +42,13 @@ export class AuthService {
                         this.token = token;
                         setTimeout(() => {
                         this.router.navigate(['/']);
-                         }, 2000)
+                         }, 2000);
                 });
             }
 )
         .catch(
             e => this.errorMessage = e.message
-        )
+        );
     }
 
     getToken() {

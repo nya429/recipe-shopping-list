@@ -30,7 +30,7 @@ export class DataStorageService {
         const token = this.authService.getToken();
         // this.http.get('https://ngrecipe-ff888.firebaseio.com/recipes.json?auth=' + token)
         // .map(
-        //     (response: Response) => { 
+        //     (response: Response) => {
         //          const recipes: Recipe[] = response.json();
         return this.httpClient.get<Recipe[]>('https://ngrecipe-ff888.firebaseio.com/recipes.json?',{
             params: new HttpParams().set('auth', token)
