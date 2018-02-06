@@ -1,13 +1,12 @@
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { RecipesModule } from './recipes/recipes.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './core/header/header.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeService } from './recipes/recipe.service';
@@ -21,22 +20,24 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/sopping-list.module';
 import { AuthModule } from './auth/auth.module';
+import { HomeComponent } from './core/home/home.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     HttpClientModule,
     AppRoutingModule,
+    AuthModule,
     RecipesModule,
     ShoppingListModule,
     SharedModule,
-    FormsModule,
-    AuthModule
   ],
   providers: [ShoppingListService,
               RecipeService,
